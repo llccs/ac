@@ -1,0 +1,73 @@
+
+
+//NAV MENUS AND LINKS
+
+.nav {
+	z-index: 100;
+	.twelve;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+	.nav span, .nav a {
+		display: block;
+		width: 100%;
+		height: 100%;
+		.slowtrans;
+		z-index: 1000;
+	}
+		.nav a:hover {
+			.fasttrans;
+		}
+
+
+.nav ul { 
+	width: 100%; 
+	z-index: 10000;
+
+	li {
+		height: 100%; 
+		margin-top: 10px;
+		float: left;
+	}
+}
+
+
+.nav .brand {
+	color: @keygreen;
+	font-size: 3em;
+	text-shadow: -1px -1px 0 @darkergrey;
+	position: absolute; 
+		bottom: 10px;
+		margin-left: -30px;
+}
+
+.logo#main {
+	background: transparent url('images/logo/notext.png') center center no-repeat;
+	background-size: contain;
+	width: 200px;
+	height: 250px;
+	margin-left: 20px;
+}
+
+.tagline {
+	font-style: italic;
+	font-size: 1.2em;
+	color: @lightkeygreen;
+	position: absolute;
+		top: 10px;
+		right: 10px;
+}
+
+.deco {
+
+background: transparent url('images/logo/notext.png') center center no-repeat;
+background-size: cover;
+opacity: 0.2;
+width: 600px;
+height: 800px;
+position: absolute;
+right: 250px;
+top: -450px;
+.rotate(90deg);
+}
