@@ -41,12 +41,6 @@
 			text-shadow: -1px -1px 0 @darkergrey;
 		}
 
-		margin-bottom: 30px;
-		.nav ul { 
-			.twelve;
-			position: relative; 
-				top: 30px;
-		}
 	}
 
 
@@ -62,6 +56,9 @@
 			.open;
 			margin-top: 30px;
 		}
+			li:first-child { margin-top: 0px; }
+			.wide li:first-child { margin-top: 30px; }
+
 		li:nth-child(2n) {
 			font-size: 1.1em;
 			line-height: 1.3em;
@@ -89,6 +86,7 @@
 		font-size: 1.5em;
 		color: @keyblue;
 		.bold;
+		border-bottom: 2px solid white;
 	}
 
 
@@ -100,4 +98,12 @@
 		background: url('images/anne.jpg') left top no-repeat;
 		background-size: 200px;
 		}
+
+	.explain {
+		background: url('images/bridge.jpg') top left no-repeat;
+		background-size: cover;
+		min-height: 400px;
+		height: auto;
+		.box-shadow(inset 0px -1px 50px 20px white);
+	}
 
