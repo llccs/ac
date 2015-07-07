@@ -127,7 +127,7 @@ i {
 		padding: 50px 30px 0 30px; 
 	
 			.copy, .credit {
-				.sans-serif;
+				.sans;
 				font-size: 16px;
 				font-weight: normal;
 				line-height: 30px;
@@ -135,16 +135,21 @@ i {
 				width: auto;
 				padding: 0 10px;
 			}
-				.credit a { margin: 0; padding: 0; line-height: 30px; }
+				.credit a { 
+					margin: 0; 
+					padding: 0; 
+					line-height: 30px; 
+					color: @keyblue;
+				}
 					.credit a:hover { 
-						color: @lightlightblue; 
+						color: @darkkeyblue; 
 					}
 				.copy { 
 				}
 			.login { 
 				float: right; 					
 				
-				a { .sans-serif; }
+				a { .sans; }
 			}
 
 		.social { 

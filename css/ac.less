@@ -13,7 +13,91 @@
 
 @import 'media.import.less';
 
-@import 'blog.import.less';
+.page { width: 100%; min-height: 100%; }
+.home { 
+
+	.open;
+	font-size: 1.1em;
+	line-height: 1.3em;
+	color: @darkestgrey;
+
+	div { 
+		text-align: center;
+	}
+}
+	.nav {
+		height: 120px; 
+		.background-linear-gradient( 
+			@keygreen,
+			@keyblue
+			);
+	
+		.brand {
+			text-align: center;
+			color: white;
+			font-size: 4em;
+			.open; 
+			margin: 25px 0;
+			text-shadow: -1px -1px 0 @darkergrey;
+		}
+
+		margin-bottom: 30px;
+		.nav ul { 
+			.twelve;
+			position: relative; 
+				top: 30px;
+		}
+	}
 
 
+.home {
+	ul { .six; }
+	ul.wide { .twelve; margin-bottom: 50px; }
+
+		li { width: 100%; }
+		
+		span.emp, li:first-child, li:nth-child(2n+1) {
+			font-size: 1.5em;
+			color: @keyblue;
+			.open;
+			margin-top: 30px;
+		}
+		li:nth-child(2n) {
+			font-size: 1.1em;
+			line-height: 1.3em;
+			.open;
+			color: @darkestgrey;
+			padding: 10px 25px;	
+		}
+
+	.explain { 
+		line-height: 1.7em; 
+		font-size: 1.3em; 
+		padding: 50px 10%;
+		text-align: justify;	
+	}
+
+
+	.bio {
+		padding:  70px;
+		background: lighten(@keygreen, 50%);
+		p { .sans; text-align: justify; padding: 0 10px; }
+	}
+}
+
+	span.title {
+		font-size: 1.5em;
+		color: @keyblue;
+		.bold;
+	}
+
+
+	.bioimage { 
+		p { margin-left: 200px; margin-top: 0; }
+
+	}
+		#anne { 
+		background: url('images/anne.jpg') left top no-repeat;
+		background-size: 200px;
+		}
 
