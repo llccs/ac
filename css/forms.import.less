@@ -6,6 +6,8 @@ label, .label, input, select, textarea {
 	vertical-align: top;
 	padding: 5px 10px;
 	border: 0 none;
+	float: left;
+	width: auto;
 }
 
 input, select, textarea {
@@ -15,51 +17,18 @@ input, select, textarea {
 input {
 	border: 1px solid @lightgrey;
 }
-	input[type=submit] { 
-		background: @lightkeygreen;
+	input[type=submit] {
+		.bold;
+		padding: 7px 20px;
+		margin-left: 10px;
+		background: @keygreen;
 		color: white;
-		font-weight: bold;
-		padding: 10px 50px;
-		margin-top: 20px;
 		.fasttrans;
 	}
 		 input[type=submit]:hover,  input[type=submit]:active {
-			background: @darkkeygreen; 
+			background: lighten(@keygreen, 7%); 
 			.fasttrans;
 		}
-textarea {
-	height: 100px;
 
-}
 
-.narrowform { 
-	li { width: 100%; }
-	label { 
-		width: 100%;	
-		text-align: left;
-		margin: 0;
-		padding-left: 0;
-	}
-
-}
-
-.dark {
-	background: @darkkeygreen;
-}
-.mid {
-	label {
-		color: @darkergrey; 
-	}
-}
-
-#mainsubscribe {
-	.narrowform;
-	padding-left: 20px;
-	label, input { font-size: 1.5em; line-height: 2em; font-weight: bold;}
-	label { color: @darkkeygreen; }
-	input { color: @keygreen; }
-		input[type=submit] { color: white; }
-			
-	form { width: 300px; margin: 0 auto; }
-}
 
