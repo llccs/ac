@@ -1,4 +1,4 @@
-Template.shortsignup.events {
+Template.contact.events {
   'submit form': (e,template)->
     e.preventDefault()
 
