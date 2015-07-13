@@ -13,3 +13,4 @@ fortawesome:fontawesome
 iron:router
 less
 ulexus:check-patterns
+momentjs:moment
