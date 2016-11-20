@@ -1,0 +1,22 @@
+{
+  "name": "ac",
+  "version": "1.0.0",
+  "description": "Site for access solutions consulting",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llccs/ac.git"
+  },
+  "author": "Seán C. McCord <ulexus@gmail.com> (http://cycoresys.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/llccs/ac/issues"
+  },
+  "homepage": "https://github.com/llccs/ac#readme",
+  "dependencies": {
+    "babel-runtime": "^6.18.0"
+  }
+}

@@ -4,13 +4,31 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
-autopublish
-insecure
-coffeescript
-email
+insecure@1.0.7
+coffeescript@1.11.1_4
+email@1.1.18
 fortawesome:fontawesome
 iron:router
-less
+less@2.7.8
 ulexus:check-patterns
 momentjs:moment
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+standard-minifier-css
+standard-minifier-js
+shell-server
+standard-minifiers
+blaze
+babel-compiler
+babel-runtime

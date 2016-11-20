@@ -1,55 +1,62 @@
 #!/bin/bash
 
-#FLEETCTL_TUNNEL="[2001:470:79::9:0]:22"
-FLEETCTL_TUNNEL="209.51.167.36:22"
-PORT=9010
-NAME=access
+IMAGE=quay.io/cycore/access
+DEPLOYMENT=access
 
-INSTANCES="1 2"
+rm -Rf .deploy
+rm -Rf build.out
 
-function waitInstance() {
-   waiting=1
-   loopcount=0
-   INSTANCEIP=$(fleetctl list-units |grep meteor.${NAME}@${INSTANCE} |cut -d'/' -f2 |cut -f1)
-   echo -n "Waiting for instance ${INSTANCE} on ${INSTANCEIP} to come up"
-   while [ $waiting -eq 1 ]; do
-      curl http://${INSTANCEIP}:${PORT} >/dev/null 2>/dev/null
-      if [ $? -eq 0 ]; then
-         waiting=0
-      fi
-      echo -n "."
-      if [ $loopcount -gt 60 ]; then
-         echo ""
-         echo "FAILED to bring up instance ${INSTANCE} on ${INSTANCEIP}"
-         echo "Log output from ${INSTANCEIP}:"
-         fleetctl journal -lines=10 meteor.${NAME}@${INSTANCE}
-         exit 2
-      fi
-      loopcount=$[$loopcount + 1]
-      sleep 10
-   done
-   echo ""
-   echo "Instance ${INSTANCE} on ${INSTANCEIP} is UP"
-}
+# Make sure we have a starting version
+if [ ! -s .version ]; then
+   echo "0" > .version
+fi
 
-for i in $INSTANCES; do
-   # Stop the instance
-   echo "Stopping instance $i..."
-   fleetctl stop meteor.${NAME}@${i}
-   if [ $? -ne 0 ]; then
-      echo "Failed"
-      exit 1
-   fi
-   sleep 1
+# Bundle Meteor
+meteor build --directory .deploy/
 
-   echo "Starting instance $i..."
-   fleetctl start meteor.${NAME}@${i}
-   if [ $? -ne 0 ]; then
-      echo "Failed"
-      exit 1
-   fi
+if [ $? -ne 0 ]; then
+   cat build.out
+   echo -e "\033[0;31m✗ BUNDLE FAILED:\033[0m"
+   exit 1
+fi
+echo -e "\033[0;32m✓ \033[0m \033[0;34mBUNDLED\033[0m ${DEPLOYMENT}"
+
+
+# Load and increment the current version
+CUR=$(( $(cat .version) + 1 ))
    
-   # Wait on the instance
-   INSTANCE=${i}
-   waitInstance
-done
+# Build the container
+docker build --pull -t ${IMAGE}:v${CUR} ./ >build.out
+
+if [ $? -ne 0 ]; then
+   cat build.out
+   echo -e "\033[0;31m✗ BUILD FAILED:\033[0m"
+   exit 2
+fi
+echo -e "\033[0;32m✓ \033[0m \033[0;34mBUILT\033[0m ${IMAGE}:v${CUR}"
+
+# Publish the container
+docker push ${IMAGE}:v${CUR}
+
+if [ $? -ne 0 ]; then
+   echo -e "\033[0;31m✗ PUBLISH FAILED:\033[0m"
+   exit 3
+fi
+echo -e "\033[0;32m✓ \033[0m \033[0;34mPUBLISHED\033[0m ${IMAGE}:v${CUR}"
+
+echo $CUR > .version
+
+# Update Kubernetes Deployment
+kubectl --context=cycore patch deployment/${DEPLOYMENT} -p '{"spec":{"template":{"spec":{"containers":[{"name": "meteor","image":"'${IMAGE}:v${CUR}'"}]}}}}'
+
+if [ $? -ne 0 ]; then
+   echo -e "\033[0;31m✗ UPDATE FAILED:\033[0m"
+   exit 4
+fi
+echo -e "\033[0;32m✓ \033[0m \033[0;34mUPDATED\033[0m ${IMAGE}:v${CUR}"
+
+# Watch rollout
+kubectl --context=cycore rollout status deployment/${DEPLOYMENT}
+
+rm -Rf .deploy
+exit 0
